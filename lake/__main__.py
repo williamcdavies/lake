@@ -1,5 +1,5 @@
 import asyncio
-import suitcase
+import suitcase # type: ignore
 
 from pathlib              import Path
 from playwright.async_api import async_playwright
@@ -16,7 +16,7 @@ async def scrape(
                 
                 await page.goto(url, wait_until="domcontentloaded")
                 
-                if(not input("") == ""):
+                if(not input("[y|N]: ") == "y"):
                         await browser.close()
                         
                         return -1
@@ -36,7 +36,7 @@ async def main() -> int:
         """__main__.main
         """
         
-        return 0
+        return await scrape("https://www.ospo.noaa.gov/products/land/hms.html#data")
 
 if __name__ == '__main__':
         asyncio.run(main())
